@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cl1p.net clone</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Views will be rendered here -->
+        <header>
+            <nav>
+                <div class="logo" onclick="app.navigate('/')">Shared Clipboard</div>
+                <div class="nav-links">
+                    <button onclick="app.navigate('/admin')" class="btn-text">Admin</button>
+                </div>
+            </nav>
+        </header>
+
+        <main id="view-container">
+            <!-- Dynamic Content -->
+        </main>
+
+        <footer id="footer">
+            <p>&copy; 2023 Shared Clipboard</p>
+        </footer>
+    </div>
+
+    <!-- Templates -->
+    <template id="view-create">
+        <div class="view create-view">
+            <h1>Create a Clipboard</h1>
+            <textarea id="content" placeholder="Paste your content here..." autofocus></textarea>
+            
+            <div class="options">
+                <div class="option-group">
+                    <label for="expires">Expires in:</label>
+                    <select id="expires">
+                        <option value="infinite">Infinite</option>
+                        <option value="1h">1 Hour</option>
+                        <option value="24h">24 Hours</option>
+                        <option value="7d">7 Days</option>
+                    </select>
+                </div>
+
+                <div class="option-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="editable" checked>
+                        <span>Allow editing</span>
+                    </label>
+                </div>
+
+                <div class="option-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="one_shot">
+                        <span>One-time read (one-shot)</span>
+                    </label>
+                </div>
+
+                <div class="option-group">
+                    <label for="custom_id">Custom URL (optional):</label>
+                    <div class="input-prefix">
+                        <span>/c/</span>
+                        <input type="text" id="custom_id" placeholder="my-id" minlength="3" maxlength="32">
+                    </div>
+                </div>
+
+                <div id="create-password-group" class="option-group hidden">
+                    <label for="write-password">Password:</label>
+                    <input type="password" id="write-password" placeholder="Enter password">
+                </div>
+            </div>
+
+            <button id="btn-create" class="btn-primary">Create Clipboard</button>
+            
+            <div id="create-result" class="result hidden">
+                <p>Clipboard created!</p>
+                <div class="copy-box">
+                    <input type="text" id="result-url" readonly>
+                    <button id="btn-copy" class="btn-secondary">Copy</button>
+                </div>
+                <button id="btn-go" class="btn-primary">Go to Clipboard</button>
+            </div>
+        </div>
+    </template>
+
+    <template id="view-clipboard">
+        <div class="view clipboard-view">
+            <div id="clipboard-password-prompt" class="hidden">
+                <h2>This clipboard is password protected</h2>
+                <div class="copy-box">
+                    <input type="password" id="read-password" placeholder="Enter password">
+                    <button id="btn-read-unlock" class="btn-primary">Unlock</button>
+                </div>
+            </div>
+            <div id="clipboard-content-container">
+                <div class="clipboard-header">
+                    <span id="clipboard-id"></span>
+                    <div class="status-tags">
+                        <span id="tag-editable" class="tag hidden">Editable</span>
+                        <span id="tag-oneshot" class="tag hidden">One-shot</span>
+                        <span id="tag-expires" class="tag hidden"></span>
+                    </div>
+                </div>
+                <textarea id="clipboard-content" placeholder="Loading..." readonly></textarea>
+                <div id="save-status" class="save-status"></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="view-admin">
+        <div class="view admin-view">
+            <h1>Admin Panel</h1>
+            <div id="admin-login" class="login-form hidden">
+                <input type="password" id="admin-password" placeholder="Admin Password">
+                <button id="btn-login" class="btn-primary">Login</button>
+            </div>
+            <div id="admin-dashboard" class="dashboard hidden">
+                <div class="admin-controls">
+                    <input type="text" id="admin-search" placeholder="Search by ID or content...">
+                </div>
+                <div class="table-responsive">
+                    <table id="clipboards-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Created</th>
+                                <th>Expires</th>
+                                <th>Accesses</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

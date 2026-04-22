@@ -1,0 +1,79 @@
+[Wed Apr 22 09:38:31 2026] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Wed Apr 22 09:39:06 2026] [::1]:43914 Accepted
+[Wed Apr 22 09:39:06 2026] [::1]:43914 Closing
+[Wed Apr 22 09:39:06 2026] [::1]:43926 Accepted
+[Wed Apr 22 09:39:06 2026] [::1]:43932 Accepted
+[Wed Apr 22 09:39:06 2026] [::1]:43926 [200]: GET /css/style.css
+[Wed Apr 22 09:39:06 2026] [::1]:43932 [200]: GET /js/app.js
+[Wed Apr 22 09:39:06 2026] [::1]:43926 Closing
+[Wed Apr 22 09:39:06 2026] [::1]:43932 Closing
+[Wed Apr 22 09:39:08 2026] [::1]:33398 Accepted
+[Wed Apr 22 09:39:08 2026] [::1]:33398 [200]: POST /api.php?action=create
+[Wed Apr 22 09:39:08 2026] [::1]:33398 Closing
+[Wed Apr 22 09:39:09 2026] [::1]:33414 Accepted
+[Wed Apr 22 09:39:09 2026] [::1]:33414 [200]: GET /api.php?action=get&id=u-bIZHHA
+[Wed Apr 22 09:39:09 2026] [::1]:33414 Closing
+[Wed Apr 22 09:39:11 2026] [::1]:33424 Accepted
+[Wed Apr 22 09:39:11 2026] [::1]:33424 [200]: POST /api.php?action=update
+[Wed Apr 22 09:39:11 2026] [::1]:33424 Closing
+[Wed Apr 22 09:39:12 2026] [::1]:33436 Accepted
+[Wed Apr 22 09:39:12 2026] [::1]:33436 [401]: GET /api.php?action=admin
+[Wed Apr 22 09:39:12 2026] [::1]:33436 Closing
+[Wed Apr 22 09:39:13 2026] [::1]:33440 Accepted
+[Wed Apr 22 09:39:13 2026] [::1]:33440 [200]: POST /api.php?action=admin
+[Wed Apr 22 09:39:13 2026] [::1]:33440 Closing
+[Wed Apr 22 09:39:13 2026] [::1]:33442 Accepted
+[Wed Apr 22 09:39:13 2026] [::1]:33442 [200]: GET /api.php?action=admin
+[Wed Apr 22 09:39:13 2026] [::1]:33442 Closing
+[Wed Apr 22 09:42:06 2026] [::1]:35268 Accepted
+[Wed Apr 22 09:42:06 2026] [::1]:35268 Closing
+[Wed Apr 22 09:42:06 2026] [::1]:35280 Accepted
+[Wed Apr 22 09:42:06 2026] [::1]:35286 Accepted
+[Wed Apr 22 09:42:06 2026] [::1]:35280 [200]: GET /css/style.css
+[Wed Apr 22 09:42:06 2026] [::1]:35280 Closing
+[Wed Apr 22 09:42:06 2026] [::1]:35286 [200]: GET /js/app.js
+[Wed Apr 22 09:42:06 2026] [::1]:35286 Closing
+[Wed Apr 22 09:42:06 2026] [::1]:35294 Accepted
+[Wed Apr 22 09:42:06 2026] [::1]:35294 [200]: GET /api.php?action=config
+[Wed Apr 22 09:42:06 2026] [::1]:35294 Closing
+[Wed Apr 22 09:42:08 2026] [::1]:35298 Accepted
+[Wed Apr 22 09:42:08 2026] [::1]:35298 [200]: POST /api.php?action=create
+[Wed Apr 22 09:42:08 2026] [::1]:35298 Closing
+[Wed Apr 22 09:42:09 2026] [::1]:35310 Accepted
+[Wed Apr 22 09:42:09 2026] [::1]:35310 [200]: GET /api.php?action=get&id=MsHtkpPr
+[Wed Apr 22 09:42:09 2026] [::1]:35310 Closing
+[Wed Apr 22 09:42:11 2026] [::1]:35318 Accepted
+[Wed Apr 22 09:42:11 2026] [::1]:35318 [200]: POST /api.php?action=update
+[Wed Apr 22 09:42:11 2026] [::1]:35318 Closing
+[Wed Apr 22 09:42:12 2026] [::1]:35330 Accepted
+[Wed Apr 22 09:42:12 2026] [::1]:35330 [401]: GET /api.php?action=admin&search=
+[Wed Apr 22 09:42:12 2026] [::1]:35330 Closing
+[Wed Apr 22 09:42:13 2026] [::1]:35340 Accepted
+[Wed Apr 22 09:42:13 2026] [::1]:35340 [200]: POST /api.php?action=admin
+[Wed Apr 22 09:42:13 2026] [::1]:35340 Closing
+[Wed Apr 22 09:42:13 2026] [::1]:35350 Accepted
+[Wed Apr 22 09:42:13 2026] [::1]:35350 [200]: GET /api.php?action=admin&search=
+[Wed Apr 22 09:42:13 2026] [::1]:35350 Closing
+[Wed Apr 22 09:42:33 2026] [::1]:42436 Accepted
+[Wed Apr 22 09:42:33 2026] [::1]:42436 Closing
+[Wed Apr 22 09:42:33 2026] [::1]:42446 Accepted
+[Wed Apr 22 09:42:33 2026] [::1]:42450 Accepted
+[Wed Apr 22 09:42:33 2026] [::1]:42446 [200]: GET /css/style.css
+[Wed Apr 22 09:42:33 2026] [::1]:42450 [200]: GET /js/app.js
+[Wed Apr 22 09:42:33 2026] [::1]:42446 Closing
+[Wed Apr 22 09:42:33 2026] [::1]:42450 Closing
+[Wed Apr 22 09:42:33 2026] [::1]:42458 Accepted
+[Wed Apr 22 09:42:33 2026] [::1]:42458 [200]: GET /api.php?action=config
+[Wed Apr 22 09:42:33 2026] [::1]:42458 Closing
+[Wed Apr 22 09:42:34 2026] [::1]:42472 Accepted
+[Wed Apr 22 09:42:34 2026] [::1]:42472 [401]: POST /api.php?action=create
+[Wed Apr 22 09:42:34 2026] [::1]:42472 Closing
+[Wed Apr 22 09:42:35 2026] [::1]:42474 Accepted
+[Wed Apr 22 09:42:35 2026] [::1]:42474 [200]: POST /api.php?action=create
+[Wed Apr 22 09:42:35 2026] [::1]:42474 Closing
+[Wed Apr 22 09:42:36 2026] [::1]:42476 Accepted
+[Wed Apr 22 09:42:36 2026] [::1]:42476 [401]: GET /api.php?action=get&id=QKXYLFFA
+[Wed Apr 22 09:42:36 2026] [::1]:42476 Closing
+[Wed Apr 22 09:42:37 2026] [::1]:49004 Accepted
+[Wed Apr 22 09:42:37 2026] [::1]:49004 [200]: GET /api.php?action=get&id=QKXYLFFA&password=admin123
+[Wed Apr 22 09:42:37 2026] [::1]:49004 Closing
