@@ -111,7 +111,7 @@ switch ($action) {
         $stmt = $pdo->prepare("INSERT INTO clipboards (id, content, created_at, expires_at, is_one_shot, is_editable) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([$id, $content, date('Y-m-d H:i:s'), $expires_at, $is_one_shot, $is_editable]);
 
-        send_json(['success' => true, 'id' => $id, 'url' => "/c/$id"]);
+        send_json(['success' => true, 'id' => $id, 'url' => "c/$id"]);
         break;
 
     case 'get':
