@@ -85,12 +85,19 @@ switch ($action) {
         $expires = $data['expires'] ?? 'infinite';
         $expires_at = null;
         if ($expires !== 'infinite') {
-            $interval = match($expires) {
-                '1h' => 'PT1H',
-                '24h' => 'P1D',
-                '7d' => 'P7D',
-                default => null
-            };
+            switch ($expires) {
+                case '1h':
+                    $interval = 'PT1H';
+                    break;
+                case '24h':
+                    $interval = 'P1D';
+                    break;
+                case '7d':
+                    $interval = 'P7D';
+                    break;
+                default:
+                    $interval = null;
+            }
             if ($interval) {
                 $date = new DateTime();
                 $date->add(new DateInterval($interval));
