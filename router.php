@@ -7,7 +7,7 @@ if (file_exists(__DIR__ . $path) && !is_dir(__DIR__ . $path)) {
 }
 
 if (preg_match('/^\/c\//', $path) || $path === '/admin' || $path === '/') {
-    include __DIR__ . '/public/index.html';
+    include __DIR__ . '/index.html';
     return true;
 }
 

@@ -2,25 +2,46 @@ const app = {
     currentView: null,
     viewContainer: null,
     
+    appRoot: '',
+
     init() {
+        // Detect app root (subdirectory)
+        const path = window.location.pathname;
+        if (path.endsWith('/admin')) {
+            this.appRoot = path.substring(0, path.length - 5);
+        } else if (path.includes('/c/')) {
+            this.appRoot = path.substring(0, path.lastIndexOf('/c/') + 1);
+        } else {
+            this.appRoot = path.endsWith('/') ? path : path.substring(0, path.lastIndexOf('/') + 1);
+        }
+
         this.viewContainer = document.getElementById('view-container');
         window.addEventListener('popstate', () => this.handleRouting());
         this.handleRouting();
     },
 
     navigate(path) {
-        window.history.pushState({}, '', path);
+        const target = this.appRoot + (path.startsWith('/') ? path.substring(1) : path);
+        window.history.pushState({}, '', target);
         this.handleRouting();
     },
 
     handleRouting() {
-        const path = window.location.pathname;
-        if (path === '/' || path === '') {
+        const fullPath = window.location.pathname;
+        let path = fullPath;
+        if (fullPath.startsWith(this.appRoot)) {
+            path = fullPath.substring(this.appRoot.length);
+        }
+
+        if (path.startsWith('/')) path = path.substring(1);
+        if (path.endsWith('/')) path = path.substring(0, path.length - 1);
+
+        if (path === '' || path === 'index.html') {
             this.renderCreateView();
-        } else if (path.startsWith('/c/')) {
-            const id = path.split('/')[2];
+        } else if (path.startsWith('c/')) {
+            const id = path.split('/')[1];
             this.renderClipboardView(id);
-        } else if (path === '/admin') {
+        } else if (path === 'admin') {
             this.renderAdminView();
         } else {
             this.viewContainer.innerHTML = '<h1>404 Not Found</h1>';
@@ -39,7 +60,7 @@ const app = {
 
         // Check if write password is required
         try {
-            const res = await fetch('/api.php?action=config');
+            const res = await fetch(this.appRoot + 'api.php?action=config');
             const config = await res.json();
             if (config.writepwd) {
                 passwordGroup.classList.remove('hidden');
@@ -57,7 +78,7 @@ const app = {
             };
 
             try {
-                const res = await fetch('/api.php?action=create', {
+                const res = await fetch(this.appRoot + 'api.php?action=create', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -66,9 +87,10 @@ const app = {
 
                 if (result.success) {
                     document.getElementById('create-result').classList.remove('hidden');
-                    document.getElementById('result-url').value = window.location.origin + result.url;
+                    const fullUrl = window.location.origin + this.appRoot + result.url;
+                    document.getElementById('result-url').value = fullUrl;
                     document.getElementById('btn-copy').onclick = () => {
-                        navigator.clipboard.writeText(window.location.origin + result.url);
+                        navigator.clipboard.writeText(fullUrl);
                         alert('URL copied to clipboard!');
                     };
                     document.getElementById('btn-go').onclick = () => this.navigate(result.url);
@@ -97,7 +119,7 @@ const app = {
         const saveStatus = document.getElementById('save-status');
 
         try {
-            const url = `/api.php?action=get&id=${id}` + (password ? `&password=${encodeURIComponent(password)}` : '');
+            const url = this.appRoot + `api.php?action=get&id=${id}` + (password ? `&password=${encodeURIComponent(password)}` : '');
             const res = await fetch(url);
             const data = await res.json();
 
@@ -131,7 +153,7 @@ const app = {
                     timeout = setTimeout(async () => {
                         saveStatus.textContent = 'Saving...';
                         try {
-                            const res = await fetch('/api.php?action=update', {
+                            const res = await fetch(this.appRoot + 'api.php?action=update', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ id, content: textArea.value, password })
@@ -180,14 +202,14 @@ const app = {
         };
 
         const loadDashboard = async (search = '') => {
-            const res = await fetch(`/api.php?action=admin&search=${encodeURIComponent(search)}`);
+            const res = await fetch(this.appRoot + `api.php?action=admin&search=${encodeURIComponent(search)}`);
             const data = await res.json();
 
             if (data.needs_login) {
                 loginForm.classList.remove('hidden');
                 document.getElementById('btn-login').onclick = async () => {
                     const password = document.getElementById('admin-password').value;
-                    const loginRes = await fetch('/api.php?action=admin', {
+                    const loginRes = await fetch(this.appRoot + 'api.php?action=admin', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ login_password: password })
@@ -207,7 +229,7 @@ const app = {
                 data.clipboards.forEach(cb => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td><a href="/c/${cb.id}" onclick="event.preventDefault(); app.navigate('/c/${cb.id}')">${cb.id}</a></td>
+                        <td><a href="${this.appRoot}c/${cb.id}" onclick="event.preventDefault(); app.navigate('c/${cb.id}')">${cb.id}</a></td>
                         <td>${cb.created_at}</td>
                         <td>${cb.expires_at || 'Never'}</td>
                         <td>${cb.access_count}</td>
@@ -226,7 +248,7 @@ const app = {
                         const cb = data.clipboards.find(c => c.id === id);
                         const newContent = prompt('Edit content:', cb.content);
                         if (newContent !== null) {
-                            const res = await fetch('/api.php?action=admin_edit', {
+                            const res = await fetch(this.appRoot + 'api.php?action=admin_edit', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ id, content: newContent })
@@ -242,7 +264,7 @@ const app = {
                         const id = btn.getAttribute('data-id');
                         const days = prompt('Extend by how many days?', '7');
                         if (days !== null) {
-                            const res = await fetch('/api.php?action=admin_extend', {
+                            const res = await fetch(this.appRoot + 'api.php?action=admin_extend', {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({ id, days })
@@ -257,7 +279,7 @@ const app = {
                     btn.onclick = async () => {
                         const id = btn.getAttribute('data-id');
                         if (confirm(`Delete clipboard ${id}?`)) {
-                            const res = await fetch(`/api.php?action=delete&id=${id}`, { method: 'POST' });
+                            const res = await fetch(this.appRoot + `api.php?action=delete&id=${id}`, { method: 'POST' });
                             const result = await res.json();
                             if (result.success) {
                                 loadDashboard();
